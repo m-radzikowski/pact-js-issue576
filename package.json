@@ -4,19 +4,28 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
-    "pact:test": "rimraf pact && jest",
-    "pact:publish": "",
-    "pact:verify": "ts-node ./provider/pactVerifier.ts",
-    "pact:can-i-deploy": "",
-    "pact:create-version-tag": ""
+    "consumer:pact:test": "cd consumer && rimraf pact && jest",
+    "consumer:pact:publish": "cd consumer && ts-node pactPublisher.ts",
+    "provider:pact:verify": "cd provider && ts-node pactVerifier.ts",
+    "provider:pact:can-i-deploy": "cd provider && ts-node pactBroker.ts"
+  },
+  "dependencies": {
+    "axios": "0.21.1"
   },
   "devDependencies": {
     "@pact-foundation/pact": "9.14.0",
     "@types/node": "12.12.70",
+    "jest": "26.6.3",
+    "jest-pact": "0.8.1",
+    "ts-jest": "26.4.4",
     "ts-node": "9.1.1",
     "typescript": "4.0.5"
   },
   "config": {
     "pact_do_not_track": true
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node"
   }
 }

@@ -4,8 +4,8 @@ import childProcess from 'child_process';
 import http from 'http';
 
 const main = async (): Promise<void> => {
-    const brokerEndpoint = process.env.PACT_BROKER_ENDPOINT;
-    const brokerKey = process.env.PACT_BROKER_KEY;
+    const brokerEndpoint = process.env.PACT_BROKER_ENDPOINT || '';
+    const brokerKey = process.env.PACT_BROKER_KEY || '';
     const stage = 'stage-name'; // stage name is also a feature-branch name
     const versionNumber = '1.0.0';
     const commit = exec('git rev-parse HEAD');
@@ -25,6 +25,7 @@ const main = async (): Promise<void> => {
         pactBrokerToken: brokerKey,
         enablePending: false,
         publishVerificationResult: true,
+        logLevel: 'debug',
     };
 
     const mockServer = startMockServer();
